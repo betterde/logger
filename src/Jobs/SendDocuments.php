@@ -50,7 +50,7 @@ class SendDocuments implements ShouldQueue
         /**
          * @var Logger $logger
          */
-        $logger = app('logger');
+        $logger = app('betterde.logger');
         /**
          * @var ElasticsearchHandler $handler
          */
