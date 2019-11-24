@@ -1,0 +1,34 @@
+{
+    "name": "betterde/logger",
+    "description": "Elasticsearch logger handler",
+    "keywords": ["Elasticsearch", "Logger"],
+    "type": "library",
+    "version": "1.0.0",
+    "require": {
+        "laravel/framework": "^6.2",
+        "predis/predis": "^1.1",
+        "monolog/monolog": "^1.12 || ^2.0",
+        "elasticsearch/elasticsearch": "^7.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "George King",
+            "email": "george@betterde.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Betterde\\Logger\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Betterde\\Logger\\Providers\\DeploymentServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
