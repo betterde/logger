@@ -53,6 +53,9 @@ return [
         'ignore_error' => false,     // Suppress Elasticsearch exceptions
     ],
 
+    /*
+     * Enable trace of exception log
+     */
     'exception' => [
         'trace' => false,
     ]
