@@ -25,8 +25,23 @@ return [
      * Elasticsearch DB
      */
     'elasticsearch' => [
-        'host' => env('ELASTICSEARCH_HOST', 'http://localhost'),
-        'port' => env('ELASTICSEARCH_PORT', 9200)
+        'hosts' => [
+            [
+                /*
+                 * host is required
+                 */
+                'host' => env('ELASTICSEARCH_HOST', 'localhost'),
+                'port' => env('ELASTICSEARCH_PORT', 9200),
+                'scheme' => env('ELASTICSEARCH_SCHEME', 'http'),
+                'user' => env('ELASTICSEARCH_USER', null),
+                'pass' => env('ELASTICSEARCH_PASS', null)
+            ],
+        ],
+        'retries' => 2,
+        /*
+         * Cart path
+         */
+        'cert' => ''
     ],
 
     /*
@@ -36,5 +51,9 @@ return [
         'index' => 'monolog', // Elastic index name
         'type' => '_doc',    // Elastic document type
         'ignore_error' => false,     // Suppress Elasticsearch exceptions
+    ],
+
+    'exception' => [
+        'trace' => false,
     ]
 ];

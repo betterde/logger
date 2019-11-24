@@ -2,8 +2,10 @@
 
 namespace Betterde\Logger;
 
-use Betterde\Logger\Jobs\SendDocuments;
+use Exception;
+use Monolog\DateTimeImmutable;
 use Monolog\Logger as Monologger;
+use Betterde\Logger\Jobs\SendDocuments;
 
 /**
  * Date: 2019/11/24
@@ -25,54 +27,53 @@ class Logger extends Monologger
      * @param string $message
      * @param array $context
      * @return bool
-     * @throws \Exception
+     * @throws \Throwable
      * @author George
      */
     public function addRecord($level, $message, array $context = array()): bool
     {
-        if (!$this->handlers) {
-            $this->pushHandler(new StreamHandler('php://stderr', static::DEBUG));
-        }
-
-        $levelName = static::getLevelName($level);
-
         // check if any handler will handle this message so we can return early and save cycles
         $handlerKey = null;
-        reset($this->handlers);
-        while ($handler = current($this->handlers)) {
-            if ($handler->isHandling(array('level' => $level))) {
-                $handlerKey = key($this->handlers);
+        foreach ($this->handlers as $key => $handler) {
+            if ($handler->isHandling(['level' => $level])) {
+                $handlerKey = $key;
                 break;
             }
-
-            next($this->handlers);
         }
 
         if (null === $handlerKey) {
             return false;
         }
 
-        if (!static::$timezone) {
-            static::$timezone = new \DateTimeZone(date_default_timezone_get() ?: 'UTC');
+        if (null === $handlerKey) {
+            return false;
         }
 
-        // php7.1+ always has microseconds enabled, so we do not need this hack
-        if ($this->microsecondTimestamps && PHP_VERSION_ID < 70100) {
-            $ts = \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), static::$timezone);
-        } else {
-            $ts = new \DateTime(null, static::$timezone);
-        }
-        $ts->setTimezone(static::$timezone);
+        $levelName = static::getLevelName($level);
 
-        $record = array(
-            'message' => (string) $message,
-            'context' => $context,
+        $record = [
+            'message' => $message,
             'level' => $level,
             'level_name' => $levelName,
             'channel' => $this->name,
-            'datetime' => $ts,
-            'extra' => array(),
-        );
+            'datetime' => new DateTimeImmutable($this->microsecondTimestamps, $this->timezone),
+            'extra' => [],
+        ];
+
+        if (isset($context['exception']) && $context['exception'] instanceof Exception) {
+            /**
+             * @var Exception $exception
+             */
+            $exception = $context['exception'];
+            $record['context'] = [
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'previous' => $exception->getPrevious(),
+                'trace' => config('logger.exception.trace') ? $exception->getTraceAsString() : []
+            ];
+        } else {
+            $record['context'] = $context;
+        }
 
         try {
             foreach ($this->processors as $processor) {
@@ -100,9 +101,8 @@ class Logger extends Monologger
                     }
                 }
             }
-
-        } catch (Exception $e) {
-            $this->handleException($e, $record);
+        } catch (Exception $exception) {
+            $this->handleException($exception, $record);
         }
 
         return true;

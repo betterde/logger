@@ -2,8 +2,6 @@
 
 namespace Betterde\Logger\Handler;
 
-use Betterde\Logger\Jobs\SendDocuments;
-use Monolog\Handler\AbstractProcessingHandler;
 
 use Throwable;
 use Monolog\Logger;
@@ -13,6 +11,7 @@ use InvalidArgumentException;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\ElasticsearchFormatter;
+use Monolog\Handler\AbstractProcessingHandler;
 use Elasticsearch\Common\Exceptions\RuntimeException as ElasticsearchRuntimeException;
 
 /**
