@@ -57,7 +57,7 @@ class Logger extends Monologger
             'level_name' => $levelName,
             'channel' => $this->name,
             'datetime' => new DateTimeImmutable($this->microsecondTimestamps, $this->timezone),
-            'extra' => [],
+            'extra' => config('logger.extra'),
         ];
 
         if (isset($context['exception']) && $context['exception'] instanceof Exception) {
