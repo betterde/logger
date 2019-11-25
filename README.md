@@ -4,7 +4,7 @@
 
 ```bash
 $ composer require betterde/logger
-$ php artisan vendor:publish --tag=logger
+$ php artisan vendor:publish --tag=betterde.logger
 ```
 # Config
 

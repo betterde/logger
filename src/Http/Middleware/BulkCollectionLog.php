@@ -42,10 +42,12 @@ class BulkCollectionLog
                 dispatch(new SendDocuments($logger->records));
             }
         } else {
+            $handlers = $logger->getHandlers();
+
             /**
              * @var ElasticsearchHandler $handler
              */
-            $handler = $logger->popHandler();
+            $handler = reset($handlers);
             $handler->handleBatch($logger->records);
         }
     }

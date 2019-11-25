@@ -51,11 +51,12 @@ class SendDocuments implements ShouldQueue
          * @var Logger $logger
          */
         $logger = app('betterde.logger');
+        $handlers = $logger->getHandlers();
 
         /**
          * @var ElasticsearchHandler $handler
          */
-        $handler = $logger->popHandler();
+        $handler = reset($handlers);
 
         if (config('logger.batch')) {
             if (count($this->records) > 0) {
