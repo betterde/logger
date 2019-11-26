@@ -5,7 +5,7 @@ namespace Betterde\Logger\Providers;
 use Betterde\Logger\Logger;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
-use Betterde\Logger\Handler\ElasticsearchHandler;
+use Monolog\Handler\ElasticSearchHandler;
 
 /**
  * Date: 2019/11/23
