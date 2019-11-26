@@ -6,9 +6,9 @@ use Betterde\Logger\Logger;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
-use Monolog\Handler\ElasticSearchHandler;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Betterde\Logger\Handler\ElasticsearchHandler;
 
 /**
  * Send documents

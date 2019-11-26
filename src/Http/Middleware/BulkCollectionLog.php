@@ -7,7 +7,7 @@ use Betterde\Logger\Logger;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Betterde\Logger\Jobs\SendDocuments;
-use Monolog\Handler\ElasticSearchHandler;
+use Betterde\Logger\Handler\ElasticsearchHandler;
 
 class BulkCollectionLog
 {
