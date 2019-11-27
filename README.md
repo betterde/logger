@@ -14,6 +14,9 @@ Now we can add the `channel` of `channels` in `config/logging.php` file.
 
 ```php
 'channels' => [
+	.
+	.
+	.
     'elastic' => [
         'driver' => 'custom',
         'via' => Betterde\Logger\ElasticsearchLogger::class,
@@ -36,7 +39,7 @@ protected $middleware = [
     \App\Http\Middleware\TrimStrings::class,
     \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     \App\Http\Middleware\TrustProxies::class,
-    \Betterde\Logger\Http\Middleware\BulkCollectionLog::class
+    \Betterde\Logger\Http\Middleware\BulkCollectionLog::class,
 ];
 ```
 
@@ -49,6 +52,7 @@ ELASTICSEARCH_PORT=9200
 ELASTICSEARCH_SCHEME=http
 ELASTICSEARCH_USER=
 ELASTICSEARCH_PASS=
+ELASTICSEARCH_LOG_INDEX_PREFIX=laravel
 ```
 
 Finally, I hope this is helpful.

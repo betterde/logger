@@ -112,7 +112,6 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 $params['body'][] = [
                     'index' => [
                         '_index' => $record['_index'],
-                        '_type'  => $record['_type'],
                     ],
                 ];
                 unset($record['_index'], $record['_type']);
@@ -123,6 +122,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
             $responses = $this->client->bulk($params);
 
             if ($responses['errors'] === true) {
+                // TODO: api has some error, should be return to upper application
                 throw new ElasticsearchRuntimeException('Elasticsearch returned error for one of the records');
             }
         } catch (Throwable $e) {
