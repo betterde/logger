@@ -13,12 +13,10 @@ You can modify config in `config/logger.php`.
 Now we can add the `channel` of `channels` in `config/logging.php` file.
 
 ```php
-use Betterde\Logger\ElasticsearchLogger;
-
 'channels' => [
     'elastic' => [
         'driver' => 'custom',
-        'via' => ElasticsearchLogger::class,
+        'via' => Betterde\Logger\ElasticsearchLogger::class,
     ],
 ],
 ```

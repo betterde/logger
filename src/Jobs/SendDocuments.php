@@ -58,13 +58,13 @@ class SendDocuments implements ShouldQueue
          */
         $handler = reset($handlers);
 
-        if (config('logger.batch')) {
-            if (count($this->records) > 0) {
+        if (count($this->records) > 0) {
+            if (config('logger.batch')) {
                 $handler->handleBatch($this->records);
-            }
-        } else {
-            if (isset($this->records['message'])) {
-                $handler->handle($this->records);
+            } else {
+                if (isset($this->records['message'])) {
+                    $handler->handle($this->records);
+                }
             }
         }
     }

@@ -64,8 +64,8 @@ return [
      * Log extra filed
      */
     'extra' => [
-        'host' => 'example.com',
-        'php' => '7.3.5',
-        'laravel' => '6.5.2'
+        'host' => env('APP_URL'),
+        'php' => PHP_VERSION,
+        'laravel' => app()->version()
     ]
 ];

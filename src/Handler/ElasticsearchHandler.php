@@ -126,7 +126,6 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 throw new ElasticsearchRuntimeException('Elasticsearch returned error for one of the records');
             }
         } catch (Throwable $e) {
-            dd($e);
             if (! $this->options['ignore_error']) {
                 throw new RuntimeException('Error sending messages to Elasticsearch', 0, $e);
             }

@@ -292,17 +292,13 @@ class Logger implements LoggerInterface, ResettableInterface
      */
     public function addRecord($level, $message, array $context = array()): bool
     {
-        // check if any handler will handle this message so we can return early and save cycles
         $handlerKey = null;
+
         foreach ($this->handlers as $key => $handler) {
             if ($handler->isHandling(['level' => $level])) {
                 $handlerKey = $key;
                 break;
             }
-        }
-
-        if (null === $handlerKey) {
-            return false;
         }
 
         if (null === $handlerKey) {
