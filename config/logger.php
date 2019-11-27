@@ -4,7 +4,7 @@ return [
     /*
      * Enable sending log of batch
      */
-    'batch' => false,
+    'batch' => true,
 
     /*
      * Enable queue sending log
@@ -48,7 +48,7 @@ return [
      * Handler options
      */
     'options' => [
-        'index' => 'monolog', // Elastic index name
+        'index' => 'monolog_'.env('ELASTICSEARCH_LOG_INDEX_PREFIX','cblink1_0').'_'.env('APP_ENV'), // Elastic index name
         'type' => '_doc',    // Elastic document type
         'ignore_error' => false,     // Suppress Elasticsearch exceptions
     ],
@@ -66,6 +66,6 @@ return [
     'extra' => [
         'host' => env('APP_URL'),
         'php' => PHP_VERSION,
-        'laravel' => app()->version()
-    ]
+        'laravel' => app()->version(),
+    ],
 ];
