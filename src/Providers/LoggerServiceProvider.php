@@ -36,7 +36,16 @@ class LoggerServiceProvider extends ServiceProvider
     {
         $this->app->singleton('betterde.logger', function () {
             $urls = $this->hostsGenerator();
-            $client = ClientBuilder::create()->setHosts($urls)->setRetries(config('logger.elasticsearch.retries'))->build();
+            $client = ClientBuilder::create()->setHosts($urls)->setRetries(config('logger.elasticsearch.retries'));
+
+            $config = head(config('logger.elasticsearch.hosts'));
+
+            if (!empty($config['user'])) {
+                $client->setBasicAuthentication($config['user'], $config['pass']);
+            }
+
+            $client = $client->build();
+
             return new Logger(config('logging.default'), [
                 new ElasticsearchHandler($client, config('logger.options'), config('logger.level'), config('logger.bubble'))
             ]);
