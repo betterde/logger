@@ -37,9 +37,9 @@ class BulkCollectionLog
          * @var Logger $logger
          */
         $logger = app('betterde.logger');
-        if (config('logger.queue')) {
+        if (config('logger.queue.enable')) {
             if (count($logger->records) > 0) {
-                dispatch(new SendDocuments($logger->records));
+                SendDocuments::dispatch($logger->records)->onQueue(config('logger.queue.name'));
             }
         } else {
             $handlers = $logger->getHandlers();

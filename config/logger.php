@@ -9,7 +9,10 @@ return [
     /*
      * Enable queue sending log
      */
-    'queue' => false,
+    'queue' => [
+        'enable' => false,
+        'name' => env('LOG_QUEUE_NAME', 'logging')
+    ],
 
     /*
      * Log level
@@ -48,7 +51,7 @@ return [
      * Handler options
      */
     'options' => [
-        'index' => 'monolog', // Elastic index name
+        'index' => strtolower(env('APP_NAME', 'laravel')) . '_' . env('APP_ENV'), // Elastic index name
         'type' => '_doc',    // Elastic document type
         'ignore_error' => false,     // Suppress Elasticsearch exceptions
     ],
@@ -64,8 +67,8 @@ return [
      * Log extra filed
      */
     'extra' => [
-        'host' => 'example.com',
-        'php' => '7.3.5',
-        'laravel' => '6.5.2'
+        'host' => env('APP_URL'),
+        'php' => PHP_VERSION,
+        'laravel' => app()->version()
     ]
 ];
