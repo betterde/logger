@@ -25,7 +25,7 @@ class ElasticsearchFormatter extends NormalizerFormatter
      * @param string $index Elasticsearch index name
      * @param string $type  Elasticsearch record type
      */
-    public function __construct(string $index, string $type)
+    public function __construct(string $index, string $type = '')
     {
         // Elasticsearch requires an ISO 8601 format date with optional millisecond precision.
         parent::__construct(DateTime::ISO8601);
@@ -73,8 +73,9 @@ class ElasticsearchFormatter extends NormalizerFormatter
     protected function getDocument(array $record): array
     {
         $record['_index'] = $this->index;
-        $record['_type'] = $this->type;
-
+        if (strlen($this->type) > 0) {
+            $record['_type'] = $this->type;
+        }
         return $record;
     }
 }

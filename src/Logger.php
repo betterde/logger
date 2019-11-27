@@ -346,8 +346,8 @@ class Logger implements LoggerInterface, ResettableInterface
             if (config('logger.batch')) {
                 $this->records[] = $record;
             } else {
-                if (config('logger.queue')) {
-                    dispatch(new SendDocuments($record));
+                if (config('logger.queue.enable')) {
+                    SendDocuments::dispatch($record)->onQueue(config('logger.queue.name'));
                 } else {
                     // advance the array pointer to the first handler that will handle this record
                     reset($this->handlers);

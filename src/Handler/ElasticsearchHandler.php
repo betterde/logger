@@ -41,7 +41,6 @@ class ElasticsearchHandler extends AbstractProcessingHandler
         $this->options = array_merge(
             [
                 'index'        => 'monolog', // Elastic index name
-                'type'         => '_doc',    // Elastic document type
                 'ignore_error' => false,     // Suppress Elasticsearch exceptions
             ],
             $options
@@ -109,10 +108,13 @@ class ElasticsearchHandler extends AbstractProcessingHandler
             ];
 
             foreach ($records as $record) {
+                $index = [];
+                $index['_index'] = $record['_index'];
+                if (array_has($record, '_type') && strlen($record['_type']) > 0) {
+                    $index['_type'] = $record['_type'];
+                }
                 $params['body'][] = [
-                    'index' => [
-                        '_index' => $record['_index'],
-                    ],
+                    'index' => $index,
                 ];
                 unset($record['_index'], $record['_type']);
 
@@ -125,9 +127,9 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 // TODO: api has some error, should be return to upper application
                 throw new ElasticsearchRuntimeException('Elasticsearch returned error for one of the records');
             }
-        } catch (Throwable $e) {
+        } catch (Throwable $exception) {
             if (! $this->options['ignore_error']) {
-                throw new RuntimeException('Error sending messages to Elasticsearch', 0, $e);
+                throw new RuntimeException('Error sending messages to Elasticsearch', 0, $exception);
             }
         }
     }

@@ -9,7 +9,10 @@ return [
     /*
      * Enable queue sending log
      */
-    'queue' => false,
+    'queue' => [
+        'enable' => false,
+        'name' => env('LOG_QUEUE_NAME', 'logging')
+    ],
 
     /*
      * Log level
