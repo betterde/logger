@@ -42,7 +42,7 @@ class BulkCollectionLog
         }
 
         if (config('logger.queue.enable')) {
-            SendDocuments::dispatch()->onQueue(config('logger.queue.name'));
+            SendDocuments::dispatch($logger->records)->onQueue(config('logger.queue.name'));
         } else {
             $handlers = $logger->getHandlers();
 

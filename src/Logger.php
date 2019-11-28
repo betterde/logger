@@ -2,6 +2,7 @@
 
 namespace Betterde\Logger;
 
+use DateTime;
 use Exception;
 use Throwable;
 use DateTimeZone;
@@ -307,9 +308,9 @@ class Logger implements LoggerInterface, ResettableInterface
 
         // php7.1+ always has microseconds enabled, so we do not need this hack
         if ($this->microsecondTimestamps && PHP_VERSION_ID < 70100) {
-            $datetime = \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), $this->timezone);
+            $datetime = DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), $this->timezone);
         } else {
-            $datetime = new \DateTime('now', $this->timezone);
+            $datetime = new DateTime('now', $this->timezone);
         }
 
         $levelName = $this->getLevelName($level);

@@ -3,12 +3,14 @@
 namespace Betterde\Logger\Formatter;
 
 use Exception;
-use Monolog\Utils;
+use Betterde\Logger\Utils;
 
 /**
  * Normalizes incoming records to remove objects/resources so it's easier to dump to various targets
  *
- * @author Jordi Boggiano <j.boggiano@seld.be>
+ * Date: 2019/11/28
+ * @author George
+ * @package Betterde\Logger\Formatter
  */
 class NormalizerFormatter implements FormatterInterface
 {

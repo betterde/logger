@@ -2,12 +2,15 @@
 
 namespace Betterde\Logger\Handler;
 
-use Monolog\Processor\ProcessorInterface;
+use Betterde\Logger\Processor\ProcessorInterface;
 
 /**
  * Interface to describe loggers that have processors
  *
- * @author Jordi Boggiano <j.boggiano@seld.be>
+ * Interface ProcessableHandlerInterface
+ * @package Betterde\Logger\Handler
+ * Date: 2019/11/28
+ * @author George
  */
 interface ProcessableHandlerInterface
 {
