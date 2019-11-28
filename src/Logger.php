@@ -7,9 +7,9 @@ use Throwable;
 use DateTimeZone;
 use LogicException;
 use Psr\Log\LoggerInterface;
-use Betterde\Logger\Handler\HandlerInterface;
 use Psr\Log\InvalidArgumentException;
 use Betterde\Logger\Jobs\SendDocuments;
+use Betterde\Logger\Handler\HandlerInterface;
 
 /**
  * Monolog log channel
@@ -341,24 +341,26 @@ class Logger implements LoggerInterface, ResettableInterface
 
             if (config('logger.batch')) {
                 $this->records[] = $record;
-            } else {
-                if (config('logger.queue.enable')) {
-                    SendDocuments::dispatch($record)->onQueue(config('logger.queue.name'));
-                } else {
-                    // advance the array pointer to the first handler that will handle this record
-                    reset($this->handlers);
-                    while ($handlerKey !== key($this->handlers)) {
-                        next($this->handlers);
-                    }
+                return true;
+            }
 
-                    while ($handler = current($this->handlers)) {
-                        if (true === $handler->handle($record)) {
-                            break;
-                        }
+            if (config('logger.queue.enable')) {
+                SendDocuments::dispatch($record)->onQueue(config('logger.queue.name'));
+                return true;
+            }
 
-                        next($this->handlers);
-                    }
+            // advance the array pointer to the first handler that will handle this record
+            reset($this->handlers);
+            while ($handlerKey !== key($this->handlers)) {
+                next($this->handlers);
+            }
+
+            while ($handler = current($this->handlers)) {
+                if (true === $handler->handle($record)) {
+                    break;
                 }
+
+                next($this->handlers);
             }
         } catch (Exception $exception) {
             $this->handleException($exception, $record);

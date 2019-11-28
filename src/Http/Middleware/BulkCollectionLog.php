@@ -37,13 +37,14 @@ class BulkCollectionLog
          * @var Logger $logger
          */
         $logger = app('betterde.logger');
+        if (empty($logger->records)) {
+            return;
+        }
+
         if (config('logger.queue.enable')) {
-            if (count($logger->records) > 0) {
-                SendDocuments::dispatch($logger->records)->onQueue(config('logger.queue.name'));
-            }
+            SendDocuments::dispatch($logger->records)->onQueue(config('logger.queue.name'));
         } else {
             $handlers = $logger->getHandlers();
-
             /**
              * @var ElasticsearchHandler $handler
              */
