@@ -6,8 +6,8 @@ use Throwable;
 use RuntimeException;
 use Elasticsearch\Client;
 use Betterde\Logger\Logger;
+use Illuminate\Support\Arr;
 use InvalidArgumentException;
-use Betterde\Logger\Processor\ProcessorInterface;
 use Betterde\Logger\Formatter\FormatterInterface;
 use Betterde\Logger\Formatter\ElasticsearchFormatter;
 use Elasticsearch\Common\Exceptions\RuntimeException as ElasticsearchRuntimeException;
@@ -101,7 +101,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
      */
     protected function getDefaultFormatter(): FormatterInterface
     {
-        return new ElasticsearchFormatter($this->options['index'], array_get($this->options['type'], 'type', ''));
+        return new ElasticsearchFormatter($this->options['index'], Arr::get($this->options['type'], 'type', ''));
     }
 
     /**
@@ -129,7 +129,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
             foreach ($records as $record) {
                 $index = [];
                 $index['_index'] = $record['_index'];
-                if (array_has($record, '_type') && strlen($record['_type']) > 0) {
+                if (Arr::has($record, '_type') && strlen($record['_type']) > 0) {
                     $index['_type'] = $record['_type'];
                 }
                 $params['body'][] = [
@@ -150,35 +150,5 @@ class ElasticsearchHandler extends AbstractProcessingHandler
                 throw new RuntimeException('Error sending messages to Elasticsearch', 0, $e);
             }
         }
-    }
-
-    /**
-     * Gets the formatter.
-     *
-     * @return FormatterInterface
-     */
-    public function getFormatter(): FormatterInterface
-    {
-        // TODO: Implement getFormatter() method.
-    }
-
-    /**
-     * Adds a processor in the stack.
-     *
-     * @param ProcessorInterface|callable $callback
-     * @return HandlerInterface            self
-     */
-    public function pushProcessor(callable $callback): HandlerInterface
-    {
-        // TODO: Implement pushProcessor() method.
-    }/**
- * Removes the processor on top of the stack and returns it.
- *
- * @return callable
- * @throws \LogicException In case the processor stack is empty
- */
-    public function popProcessor(): callable
-    {
-        // TODO: Implement popProcessor() method.
     }
 }

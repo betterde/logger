@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Monolog\Handler;
+namespace Betterde\Logger\Handler;
 
-use Betterde\Logger\Formatter\FormatterInterface;
 use Betterde\Logger\Formatter\LineFormatter;
+use Betterde\Logger\Formatter\FormatterInterface;
 
 /**
  * Helper trait for implementing FormattableInterface

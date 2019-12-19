@@ -20,6 +20,7 @@ abstract class AbstractHandler extends Handler implements ResettableInterface
      * @author George
      */
     protected $level = Logger::DEBUG;
+
     /**
      * @var bool
      * Date: 2019/11/27
