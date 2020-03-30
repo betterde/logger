@@ -7,7 +7,9 @@ use RuntimeException;
 use Elasticsearch\Client;
 use Betterde\Logger\Logger;
 use InvalidArgumentException;
-use Betterde\Logger\Formatter\FormatterInterface;
+use Monolog\Handler\HandlerInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Handler\AbstractProcessingHandler;
 use Betterde\Logger\Formatter\ElasticsearchFormatter;
 use Elasticsearch\Common\Exceptions\RuntimeException as ElasticsearchRuntimeException;
 
@@ -56,7 +58,10 @@ class ElasticsearchHandler extends AbstractProcessingHandler
     }
 
     /**
-     * {@inheritdoc}
+     * Date: 2020/3/30
+     * @param FormatterInterface $formatter
+     * @return HandlerInterface
+     * @author George
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
@@ -98,7 +103,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
      * Use Elasticsearch bulk API to send list of documents
      *
      * @param  array             $records
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     protected function bulkSend(array $records): void
     {

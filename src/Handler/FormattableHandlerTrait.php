@@ -2,8 +2,8 @@
 
 namespace Betterde\Logger\Handler;
 
+use Monolog\Formatter\FormatterInterface;
 use Betterde\Logger\Formatter\LineFormatter;
-use Betterde\Logger\Formatter\FormatterInterface;
 
 /**
  * Helper trait for implementing FormattableInterface

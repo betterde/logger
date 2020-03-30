@@ -2,7 +2,8 @@
 
 namespace Betterde\Logger\Handler;
 
-use Betterde\Logger\ResettableInterface;
+use Monolog\ResettableInterface;
+use Monolog\Handler\HandlerInterface;
 
 /**
  * Helper trait for implementing ProcessableInterface

@@ -4,7 +4,7 @@ return [
     /*
      * Enable sending log of batch
      */
-    'batch' => true,
+    'batch' => false,
 
     /*
      * Enable queue sending log
@@ -51,7 +51,7 @@ return [
      * Handler options
      */
     'options' => [
-        'index' => 'monolog_'.env('ELASTICSEARCH_LOG_INDEX_PREFIX','cblink1_0').'_'.env('APP_ENV'), // Elastic index name
+        'index' => env('ELASTICSEARCH_LOG_INDEX','monolog'), // Elastic index name
         'type' => '_doc',    // Elastic document type
         'ignore_error' => false,     // Suppress Elasticsearch exceptions
     ],

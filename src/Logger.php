@@ -7,9 +7,10 @@ use Exception;
 use Throwable;
 use DateTimeZone;
 use Psr\Log\LoggerInterface;
+use Monolog\ResettableInterface;
 use Psr\Log\InvalidArgumentException;
+use Monolog\Handler\HandlerInterface;
 use Betterde\Logger\Jobs\SendDocuments;
-use Betterde\Logger\Handler\HandlerInterface;
 
 /**
  * Monolog log channel

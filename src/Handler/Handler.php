@@ -2,6 +2,8 @@
 
 namespace Betterde\Logger\Handler;
 
+use Monolog\Handler\HandlerInterface;
+
 /**
  * Base Handler class providing basic close() support as well as handleBatch
  *
