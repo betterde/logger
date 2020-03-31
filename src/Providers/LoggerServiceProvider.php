@@ -40,7 +40,7 @@ class LoggerServiceProvider extends ServiceProvider
                 ->setRetries(config('logger.elasticsearch.retries'))
                 ->build();
 
-            return new Logger(config('logging.default'), [
+            return new Logger('elastic', [
                 new ElasticsearchHandler($client, config('logger.options'), config('logger.level'), config('logger.bubble'))
             ]);
         });

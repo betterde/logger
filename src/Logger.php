@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use Throwable;
 use DateTimeZone;
+use LogicException;
 use Psr\Log\LoggerInterface;
 use Monolog\ResettableInterface;
 use Psr\Log\InvalidArgumentException;
@@ -188,12 +189,12 @@ class Logger implements LoggerInterface, ResettableInterface
     /**
      * Pops a handler from the stack
      *
-     * @throws \LogicException If empty handler stack
+     * @throws LogicException If empty handler stack
      */
     public function popHandler(): HandlerInterface
     {
         if (!$this->handlers) {
-            throw new \LogicException('You tried to pop from an empty handler stack.');
+            throw new LogicException('You tried to pop from an empty handler stack.');
         }
 
         return array_shift($this->handlers);
@@ -240,13 +241,13 @@ class Logger implements LoggerInterface, ResettableInterface
     /**
      * Removes the processor on top of the stack and returns it.
      *
-     * @throws \LogicException If empty processor stack
+     * @throws LogicException If empty processor stack
      * @return callable
      */
     public function popProcessor(): callable
     {
         if (!$this->processors) {
-            throw new \LogicException('You tried to pop from an empty processor stack.');
+            throw new LogicException('You tried to pop from an empty processor stack.');
         }
 
         return array_shift($this->processors);
@@ -289,7 +290,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * @param string $message The log message
      * @param array $context The log context
      * @return bool   Whether the record has been processed
-     * @throws \Exception
+     * @throws Exception
      * @throws Throwable
      */
     public function addRecord($level, $message, array $context = array()): bool

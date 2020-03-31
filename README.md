@@ -56,3 +56,5 @@ ELASTICSEARCH_LOG_INDEX=laravel
 ```
 
 Finally, I hope this is helpful.
+
+> If you want to use the `stack` channel, `batch` and `queue` settings will not work!
