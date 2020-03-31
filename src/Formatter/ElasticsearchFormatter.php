@@ -3,6 +3,7 @@
 namespace Betterde\Logger\Formatter;
 
 use DateTime;
+use Monolog\Formatter\NormalizerFormatter;
 
 /**
  * Format a log message into an Elasticsearch record

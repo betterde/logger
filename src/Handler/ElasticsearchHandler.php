@@ -8,7 +8,9 @@ use Elasticsearch\Client;
 use Betterde\Logger\Logger;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
-use Betterde\Logger\Formatter\FormatterInterface;
+use Monolog\Handler\HandlerInterface;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Handler\AbstractProcessingHandler;
 use Betterde\Logger\Formatter\ElasticsearchFormatter;
 use Elasticsearch\Common\Exceptions\RuntimeException as ElasticsearchRuntimeException;
 
@@ -101,7 +103,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
      */
     protected function getDefaultFormatter(): FormatterInterface
     {
-        return new ElasticsearchFormatter($this->options['index'], Arr::get($this->options['type'], 'type', ''));
+        return new ElasticsearchFormatter($this->options['index'], Arr::get($this->options, 'type', ''));
     }
 
     /**
