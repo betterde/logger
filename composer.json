@@ -3,7 +3,7 @@
     "description": "Elasticsearch logger handler",
     "keywords": ["Elasticsearch", "Logger"],
     "type": "library",
-    "version": "2.1.5",
+    "version": "2.1.6",
     "require": {
         "laravel/framework": "^6.0|^7.0|^8.0",
         "predis/predis": "^1.1",
