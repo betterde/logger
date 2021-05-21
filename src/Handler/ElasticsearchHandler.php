@@ -71,6 +71,9 @@ class ElasticsearchHandler extends AbstractProcessingHandler
      */
     protected function write(array $record): void
     {
+        //for stack channels array from monolog
+        if (!data_get($record['formatted'],'extra')) $record['formatted']['extra'] = config('logger.extra');
+        
         $this->bulkSend([$record['formatted']]);
     }
 
