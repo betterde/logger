@@ -44,7 +44,16 @@ return [
         /*
          * Cart path
          */
-        'cert' => ''
+        'cert' => '',
+        /*
+         * set timeout and connect_timeout
+         */
+        'params' => [
+            'client' => [
+                'timeout' => 2,
+                'connect_timeout' => 2
+            ]
+        ]
     ],
 
     /*
