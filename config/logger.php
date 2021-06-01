@@ -48,10 +48,10 @@ return [
         /*
          * set timeout and connect_timeout
          */
-        'params'=>[
+        'params' => [
             'client' => [
-                'timeout' => 3,
-                'connect_timeout' => 3
+                'timeout' => 2,
+                'connect_timeout' => 2
             ]
         ]
     ],
